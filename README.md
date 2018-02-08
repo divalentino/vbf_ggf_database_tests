@@ -1,9 +1,7 @@
 # vbf_ggf_database_tests
 Proof-of-concept project using open-source database software and statistical analysis tools to perform physics analyses.
 
-##################################################
 Planned tools:
-##################################################
 
 - Apache Spark / python (querying data / ML)
 - R (statistical analysis / ML)
@@ -11,9 +9,7 @@ Planned tools:
 - MadGraph5_aMC@NLO (event generation)
 - PYTHIA8 (parton showering)
 
-##################################################
 Initial plan for use case:
-##################################################
 
 Using multivariate techniques (e.g. boosted decision trees) to classify and identify
 vector boson fusion-mediated Higgs production against a ``background" of gluon fusion-

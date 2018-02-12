@@ -91,7 +91,6 @@ for elt in range(0,len(coll_ggf)) :
 
 # Superimpose histograms of the BDT probability
 # (analogous to BDT response?)
-# for VBF and ggF signal, normalized to a range of [-1,1].
 bins = np.linspace(0,1,25);
 
 plt.hist(gbt_scores_vbf, bins, alpha=0.5, label='VBF', color='blue')

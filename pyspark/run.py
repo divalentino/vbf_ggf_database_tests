@@ -33,6 +33,11 @@ spark = SparkSession.builder.config("k1", "v1").getOrCreate();
 # File I/O.
 ################################################################################
 
+# Choose input training variables.
+# training_vars = ["DelEta_jj", "DijetMass", "LeadingJetPt"];
+
+training_vars = ["DelEta_jj","DijetMass","LeadingJetPt","SubleadingJetPt","PtHjj","ZeppetaZZ"];
+
 # Read in the CSVs and perform initial selection.
 print "Reading input data"
 vbf_data = get_data(spark,"../output/vbf.csv");
@@ -43,15 +48,15 @@ split_vbf = vbf_data.randomSplit([0.5,0.5],1);
 split_ggf = ggf_data.randomSplit([0.5,0.5],1);
 
 # Format the data in a way usable for ML algorithm.
-train_vbf = data_formatter(split_vbf[0], 1,["DelEta_jj", "DijetMass", "LeadingJetPt"]);
-train_ggf = data_formatter(split_ggf[0], 0,["DelEta_jj", "DijetMass", "LeadingJetPt"]);
+train_vbf = data_formatter(split_vbf[0], 1,training_vars);
+train_ggf = data_formatter(split_ggf[0], 0,training_vars);
 
 # Append the training data together.
 train_total = train_vbf.union(train_ggf);
 
 # Create equivalent testing samples.
-test_vbf  = data_formatter(split_vbf[1], 1,["DelEta_jj", "DijetMass", "LeadingJetPt"]);
-test_ggf  = data_formatter(split_ggf[1], 0,["DelEta_jj", "DijetMass", "LeadingJetPt"]);
+test_vbf  = data_formatter(split_vbf[1], 1,training_vars);
+test_ggf  = data_formatter(split_ggf[1], 0,training_vars);
 
 # Build vectors of weights for the test events
 # for later use in statistical analysis.
@@ -107,5 +112,5 @@ plt.hist(gbt_scores_ggf, bins, alpha=0.5, label='ggF', color='red', weights = gb
 plt.legend(loc='upper right')
 plt.show()
 
-# TO DO: Need to map the individual events to their event weights,
-# so that yield distributions can be drawn.
+# Perform a scan over the possible probability range to derive e.g. the optimal
+# approximate statistical significance.

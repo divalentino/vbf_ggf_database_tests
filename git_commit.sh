@@ -6,6 +6,8 @@ message="${1}"
 rm *~
 rm -rf pyspark/metastore_db
 rm -rf pyspark/spark-warehouse
+rm -rf pyspark/*.pyc
+rm -rf pyspark/*.log
 
 #Add new changes.
 git add *.sh

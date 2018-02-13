@@ -11,9 +11,9 @@ def data_formatter(input_data, data_type, variables) :
         outputCol="features")
 
     transformed = assembler.transform(input_data);
-    vec_var = transformed.select(col("features"))\
+    vec_var = transformed.select(col("weight"),col("features"))\
       .rdd\
-      .map(lambda row: (data_type, row.features)).toDF()\
-      .select(col("_1").alias("label"),col("_2").alias("features"));
+      .map(lambda row: (data_type, row.weight, row.features)).toDF()\
+      .select(col("_1").alias("label"),col("_2").alias("weight"),col("_3").alias("features"));
 
     return vec_var
